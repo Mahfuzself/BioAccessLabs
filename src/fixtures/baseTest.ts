@@ -1,8 +1,10 @@
 import { test as base, BrowserContext, Page } from '@playwright/test';
-
+import { BasePage } from '../pages/basePage';
+import { RegisterPage } from '../pages/registerPage';
 type Fixtures = {
   context: BrowserContext;
   page: Page;
+
 };
 
 export const test = base.extend<Fixtures>({

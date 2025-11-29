@@ -3,7 +3,8 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests/ui',
   testMatch : [
-    '**/*loginTest.ts'
+    '**/*loginTest.ts',
+    '**/*/smokeTest.ts'
   ],
   timeout: 30 * 1000,
   expect: { timeout: 5000 },

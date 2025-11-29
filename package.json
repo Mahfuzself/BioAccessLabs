@@ -18,5 +18,11 @@
     "@types/node": "^24.10.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.0"
-  }
+  },
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "author": "",
+  "license": "ISC"
 }
