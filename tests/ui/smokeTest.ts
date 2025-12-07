@@ -8,7 +8,7 @@ test.describe('Bio Access Labs - Smoke Tests with Page Object Model', () => {
   // ==================== HOMEPAGE SMOKE TESTS ====================
   test.describe('@smoke Homepage Tests', () => {
     
-    test('@smoke TC_HP_01: Verify homepage loads with all elements', async ({ page }) => {
+    test.only('@smoke TC_HP_01: Verify homepage loads with all elements', async ({ page }) => {
       const homePage = new HomePage(page);
       
       // Navigate to homepage
