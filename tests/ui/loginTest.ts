@@ -1,4 +1,4 @@
-import { test, expect } from '../../src/fixtures/baseTest';
+import { test, expect } from '../../src/fixtures/testFixture';
 test("Login is working properly",async({page})=>{
     await page.goto('/')
     await page.getByRole('button', { name: 'Log In' }).click();

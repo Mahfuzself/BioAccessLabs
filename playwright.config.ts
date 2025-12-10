@@ -1,10 +1,14 @@
 import { defineConfig, devices } from '@playwright/test';
+import { envConfig } from './src/config/environment.config';
 
 export default defineConfig({
   testDir: './tests/ui',
   testMatch : [
     '**/*loginTest.ts',
-    '**/*/smokeTest.ts'
+    '**/*/smokeTest.ts',
+    '**/*/smoke/complete.smoke.spec.ts',
+    '**/*/regression/login.regression.spec.ts',
+    '**/*/e2eTest.ts'
   ],
   timeout: 30 * 1000,
   expect: { timeout: 5000 },
@@ -12,9 +16,19 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 2 : undefined,
-  reporter: [['html', { open: 'alaways' }], ['list']],
+  reporter: [
+      ['html', { open: 'always', outputFolder: 'reports/html-report' }],
+      ['json', { outputFile: 'reports/test-results.json' }],
+      ['junit', { outputFile: 'reports/junit-results.xml' }],
+      ['allure-playwright', { 
+        outputFolder: 'reports/allure-results',
+        detail: true,
+        suiteTitle: true
+      }],
+      ['list']
+  ],
   use: {
-    baseURL: 'https://bioal.thrivewellrx.com/',
+    baseURL: envConfig.baseURL,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',

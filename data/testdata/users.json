@@ -1,0 +1,95 @@
+{
+  "validUser": {
+    "email": "mahfuz@yopmail.com",
+    "password": "Test@1234",
+    "firstName": "Mahfuz",
+    "lastName": "Rahman"
+  },
+  "adminUser": {
+    "email": "admin@yopmail.com",
+    "password": "Admin@1234",
+    "firstName": "Admin",
+    "lastName": "User"
+  },
+  "invalidUsers": [
+    {
+      "email": "invalid@email",
+      "password": "weak",
+      "expectedError": "Invalid email format"
+    },
+    {
+      "email": "",
+      "password": "Test@1234",
+      "expectedError": "Email is required"
+    },
+    {
+      "email": "test@yopmail.com",
+      "password": "",
+      "expectedError": "Password is required"
+    },
+    {
+      "email": "nonexistent@yopmail.com",
+      "password": "WrongPassword123!",
+      "expectedError": "Invalid credentials"
+    }
+  ],
+  "passwordTestCases": [
+    {
+      "description": "Too short password",
+      "password": "Ab1!",
+      "valid": false
+    },
+    {
+      "description": "No uppercase",
+      "password": "password123!",
+      "valid": false
+    },
+    {
+      "description": "No lowercase",
+      "password": "PASSWORD123!",
+      "valid": false
+    },
+    {
+      "description": "No number",
+      "password": "Password!",
+      "valid": false
+    },
+    {
+      "description": "No special character",
+      "password": "Password123",
+      "valid": false
+    },
+    {
+      "description": "Valid password",
+      "password": "Password123!",
+      "valid": true
+    }
+  ],
+  "emailTestCases": [
+    {
+      "description": "Valid email",
+      "email": "test@example.com",
+      "valid": true
+    },
+    {
+      "description": "Missing @",
+      "email": "testexample.com",
+      "valid": false
+    },
+    {
+      "description": "Missing domain",
+      "email": "test@",
+      "valid": false
+    },
+    {
+      "description": "Missing local part",
+      "email": "@example.com",
+      "valid": false
+    },
+    {
+      "description": "Invalid characters",
+      "email": "test user@example.com",
+      "valid": false
+    }
+  ]
+}

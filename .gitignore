@@ -1,8 +1,42 @@
+node_modules/
+package-lock.json
 
 # Playwright
-node_modules/
 /test-results/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Test Framework
+.env.*
+!.env.example
+logs/
+.auth/
+reports/
+screenshots/
+videos/
+test-results/
+allure-results/
+allure-report/
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+dist/
+build/
+*.tsbuildinfo
+
+# Coverage
+coverage/
+.nyc_output/

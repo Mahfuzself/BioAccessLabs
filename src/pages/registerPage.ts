@@ -262,7 +262,7 @@ export class RegisterPage extends BasePage {
 
   async verifyRegisterPageLoaded() {
     await this.verifyRegisterPageTitle();
-    await this.verifyLogoVisible();
+    await this.verifyFooterVisible();
     await this.verifyPageHeading();
     await this.verifyAllFormFields();
   }
