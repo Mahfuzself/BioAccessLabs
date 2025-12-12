@@ -1,3 +1,4 @@
+
 import { test as base, Page, BrowserContext } from '@playwright/test';
 import { HomePage } from '../pages/homePage';
 import { LoginPage } from '../pages/loginPage';
@@ -5,6 +6,8 @@ import { RegisterPage } from '../pages/registerPage';
 import { TestDataManager, UserTestData } from '../utils/testDataManager';
 import { logger, logTest } from '../utils/logger';
 import { envConfig } from '../config/environment.config';
+import { CartPage } from '@pages/cartPage';
+import { ProductPage } from '@pages/productPage';
 import path from 'path';
 import fs from 'fs';
 
@@ -13,6 +16,9 @@ type TestFixtures = {
   homePage: HomePage;
   loginPage: LoginPage;
   registerPage: RegisterPage;
+  cartPage : CartPage;
+  productPage : ProductPage
+
   testData: {
     randomUser: UserTestData;
     validUser: any;
@@ -95,6 +101,16 @@ export const test = base.extend<TestFixtures>({
     const registerPage = new RegisterPage(page);
     logger.debug('RegisterPage instance created');
     await use(registerPage);
+  },
+  cartPage: async ({ page }, use) => {
+    const cartPage = new CartPage(page);
+    logger.debug('CartPage instance created');
+    await use(cartPage);
+  },
+  productPage: async ({ page }, use) => {
+    const productPage = new ProductPage(page);
+    logger.debug('ProductPage instance created');
+    await use(productPage);
   },
 
   // Test data fixture

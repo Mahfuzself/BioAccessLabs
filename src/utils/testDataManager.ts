@@ -64,27 +64,37 @@ export class TestDataManager {
 
   // Generate random user data
   static generateRandomUser(): UserTestData {
-    const firstName = faker.person.firstName();
-    const lastName = faker.person.lastName();
-    const birthDate = faker.date.birthdate({ min: 18, max: 80, mode: 'age' });
-    
-    // Format date as MM/DD/YYYY
-    const month = String(birthDate.getMonth() + 1).padStart(2, '0');
-    const day = String(birthDate.getDate()).padStart(2, '0');
-    const year = birthDate.getFullYear();
-    
-    return {
-      email: faker.internet.email({ firstName, lastName, provider: 'yopmail.com' }),
-      password: this.generateStrongPassword(),
-      confirmPassword: this.generateStrongPassword(),
-      firstName,
-      lastName,
-      displayName: `${firstName}${lastName}${faker.number.int({ min: 100, max: 999 })}`,
-      dob: `${month}/${day}/${year}`,
-      mobile: faker.string.numeric(10),
-      gender: faker.helpers.arrayElement(['Male', 'Female'])
-    };
-  }
+  const firstName = faker.person.firstName();
+  const lastName = faker.person.lastName();
+  const birthDate = faker.date.birthdate({ min: 18, max: 80, mode: 'age' });
+
+  const month = String(birthDate.getMonth() + 1).padStart(2, '0');
+  const day = String(birthDate.getDate()).padStart(2, '0');
+  const year = birthDate.getFullYear();
+
+  // Email: firstname+lastname@yopmail.com
+  const email = `${firstName.toLowerCase()}${lastName.toLowerCase()}@yopmail.com`;
+
+  // US phone number generate
+  const areaCode = faker.number.int({ min: 200, max: 999 }); // cannot start with 0 or 1
+  const prefix = faker.number.int({ min: 200, max: 999 });
+  const lineNumber = faker.number.int({ min: 1000, max: 9999 });
+
+  const mobile = `${areaCode}${prefix}${lineNumber}`; // 10-digit US number
+
+  return {
+    email,
+    password: this.generateStrongPassword(),
+    confirmPassword: this.generateStrongPassword(),
+    firstName,
+    lastName,
+    displayName: `${firstName} ${lastName}`,
+    dob: `${month}/${day}/${year}`,
+    mobile,
+    gender: faker.helpers.arrayElement(['Male', 'Female']),
+  };
+}
+
 
   // Generate strong password
   static generateStrongPassword(length: number = 12): string {

@@ -8,6 +8,7 @@ export default defineConfig({
     '**/*/smokeTest.ts',
     '**/*/smoke/complete.smoke.spec.ts',
     '**/*/regression/login.regression.spec.ts',
+    '**/*/regression/registration.regression.spec.ts',
     '**/*/e2eTest.ts'
   ],
   timeout: 30 * 1000,

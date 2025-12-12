@@ -25,6 +25,7 @@ export class BasePage {
   cartCount!: Locator;
   searchBox!: Locator;
   searchButton!: Locator;
+  profileMenu!: Locator;
   
   // ==================== COMMON FOOTER ELEMENTS ====================
   footerLogo!: Locator;
@@ -69,8 +70,9 @@ export class BasePage {
     this.aboutUsLink = this.page.getByRole('link', { name: /About Us/i });
     this.contactUsLink = this.page.getByRole('link', { name: /Contact Us/i });
     this.loginButton = this.page.getByRole('button', { name: /log in|login|sign in/i });
-    this.logoutButton = this.page.getByRole('button', { name: /log out|logout|sign out/i });
+    this.logoutButton = this.page.getByText('Log Out').first();
     this.userProfileIcon = this.page.locator('[data-testid="user-profile"], .user-profile, .profile-icon');
+    this.profileMenu = this.page.getByRole('button', { name: new RegExp('Mahfuz Alam') });    
     
     // Shopping cart
     this.cartButton = this.page.locator('[data-testid="cart"], .cart-icon, button:has-text("Cart")').first();
@@ -203,7 +205,7 @@ export class BasePage {
 
   async click(locator: Locator, description?: string): Promise<void> {
     if (description) logStep(`Clicking: ${description}`);
-    await locator.scrollIntoViewIfNeeded();
+    // await locator.scrollIntoViewIfNeeded();
     await locator.click();
     await this.waitForLoadingToComplete();
   }
@@ -403,6 +405,7 @@ export class BasePage {
   }
 
   async clickLogoutButton(): Promise<void> {
+     await this.page.getByRole('button', { name: 'Mahfuz Alam ' }).click();
     await this.click(this.logoutButton, 'Logout Button');
     await this.waitForPageLoad();
   }
@@ -468,6 +471,7 @@ async verifyHeaderVisible(): Promise<void> {
   }
 
   async verifyUserIsLoggedIn(): Promise<boolean> {
+    await this.clickProfile();
     try {
       return await this.logoutButton.isVisible({ timeout: 2000 });
     } catch {
@@ -696,5 +700,9 @@ async verifyHeaderVisible(): Promise<void> {
   async clearLocalStorage(): Promise<void> {
     await this.page.evaluate(() => localStorage.clear());
     logger.debug('✓ Local storage cleared');
+  }
+   async clickProfile(): Promise<void> {
+    await this.profileMenu.click();
+    logger.debug('✓ Clicked on profile button');
   }
 }

@@ -2,6 +2,7 @@ import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './basePage';
 import { logger, logStep } from '../utils/logger';
 import { TestDataManager } from '../utils/testDataManager';
+import { th } from '@faker-js/faker';
 
 export interface LoginCredentials {
   email: string;
@@ -42,7 +43,7 @@ export class LoginPage extends BasePage {
     this.passwordLabel = page.locator('text="Password:"');
     this.passwordInput = page.getByRole('textbox', { name: 'Password:' });
     this.showPasswordButton = page.locator('button').filter({ hasText: '' }).nth(1);
-    this.rememberLoginCheckbox = page.getByRole('checkbox', { name: 'Remember Login' });
+    this.rememberLoginCheckbox = page.getByLabel('Remember Login');
     this.rememberLoginLabel = page.getByText('Remember Login');
     this.loginButton = page.getByRole('link', { name: 'Login' });
     
@@ -125,12 +126,24 @@ export class LoginPage extends BasePage {
   /**
    * Check remember login checkbox
    */
+  // async checkRememberLogin(): Promise<void> {
+    
+  //   await this.rememberLoginCheckbox.scrollIntoViewIfNeeded();
+  //   if (!await this.rememberLoginCheckbox.isChecked()) {
+  //     await this.rememberLoginCheckbox.click({ force: true });
+  //     logger.debug('Remember login checked');
+  //   }
+  // }
   async checkRememberLogin(): Promise<void> {
-    if (!await this.rememberLoginCheckbox.isChecked()) {
-      await this.rememberLoginCheckbox.check();
-      logger.debug('Remember login checked');
-    }
-  }
+
+  const checkbox = this.rememberLoginCheckbox;
+  await checkbox.scrollIntoViewIfNeeded();
+
+  // Force-click instead of check()
+  await checkbox.click();
+  
+  logger.debug('Remember login clicked');
+}
 
   /**
    * Uncheck remember login checkbox
@@ -356,7 +369,7 @@ export class LoginPage extends BasePage {
    * Wait for login to complete
    */
   async waitForLoginComplete(): Promise<void> {
-    await this.page.waitForURL(url => !url.includes('Login'), { timeout: 10000 });
+    await this.page.waitForURL(url => !url.toString().includes('Login'), { timeout: 10000 });
     logger.info('Login completed');
   }
 }

@@ -80,9 +80,9 @@ export class RegisterPage extends BasePage {
     this.displayNameInput = page.getByRole('textbox', { name: 'DisplayName' });
     this.dobInput = page.getByRole('textbox').nth(4);
     this.mobileInput = page.getByRole('textbox').nth(5);
-    this.genderDropdown = page.getByRole('combobox');
-    this.passwordInput = page.getByRole('textbox', { name: 'Password' });
-    this.confirmPasswordInput = page.getByRole('textbox', { name: 'PasswordConfirm' });
+    this.genderDropdown = page.getByRole('combobox').first();
+    this.passwordInput = page.getByRole('textbox', { name: 'Password' }).first();
+    this.confirmPasswordInput = page.getByRole('textbox', { name: 'PasswordConfirm' }).last();
     
     // Buttons and links
     this.registerButton = page.getByRole('link', { name: 'Register' });
